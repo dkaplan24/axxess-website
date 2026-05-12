@@ -1,0 +1,1524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Axxess Mobility — The cargo van. Without the ownership.</title>
+  <meta name="description" content="New electric cargo vans for delivery drivers and operators — insured, maintained, and paid for automatically from weekly earnings. No credit card. No deposit." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       RESET & CUSTOM PROPERTIES
+    ============================================================ */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --navy: #0D1B2A;
+      --navy-deep: #07111C;
+      --teal: #00B4B4;
+      --teal-light: #1CBFA4;
+      --cream: #F5F2EC;
+      --cream-dark: #EAE6DF;
+      --white: #FFFFFF;
+      --gray-muted: #8A9BAD;
+      --text-body: #4A5E70;
+
+      --font-heading: 'Syne', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+
+      --section-pad-v: 96px;
+      --section-pad-h: 48px;
+      --max-width: 1200px;
+      --radius-card: 16px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--text-body);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* ============================================================
+       TYPOGRAPHY UTILITIES
+    ============================================================ */
+    .section-label {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--teal);
+    }
+
+    .syne {
+      font-family: var(--font-heading);
+      letter-spacing: -0.02em;
+      line-height: 1.07;
+    }
+
+    /* ============================================================
+       LAYOUT UTILITIES
+    ============================================================ */
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 var(--section-pad-h);
+    }
+
+    /* ============================================================
+       ANIMATION — FADE UP ON SCROLL
+    ============================================================ */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ============================================================
+       FLOAT ANIMATION — VAN IMAGE
+    ============================================================ */
+    @keyframes float {
+      0%   { transform: translateY(0px); }
+      50%  { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+
+    /* ============================================================
+       BUTTON STYLES
+    ============================================================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: 15px;
+      padding: 14px 28px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      border: none;
+      white-space: nowrap;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background: var(--teal);
+      color: var(--white);
+    }
+
+    .btn-primary:hover {
+      background: var(--teal-light);
+      box-shadow: 0 8px 24px rgba(0, 180, 180, 0.35);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--white);
+      border: 1.5px solid rgba(255, 255, 255, 0.45);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--teal);
+      color: var(--teal);
+      box-shadow: 0 8px 24px rgba(0, 180, 180, 0.15);
+    }
+
+    /* ============================================================
+       NAV
+    ============================================================ */
+    #nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: var(--navy);
+      transition: box-shadow 0.3s ease, border-bottom 0.3s ease;
+    }
+
+    #nav.scrolled {
+      box-shadow: 0 2px 24px rgba(0, 0, 0, 0.35);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .nav-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 var(--section-pad-h);
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+    }
+
+    .nav-logo img {
+      height: 36px;
+      width: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.7);
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--white);
+    }
+
+    .nav-cta {
+      flex-shrink: 0;
+    }
+
+    /* ============================================================
+       HERO
+    ============================================================ */
+    #hero {
+      background: var(--navy);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 68px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-glow {
+      position: absolute;
+      top: -120px;
+      right: -80px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(0, 180, 180, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 80px var(--section-pad-h);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+      width: 100%;
+    }
+
+    .hero-image-col {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-van {
+      width: 100%;
+      max-width: 580px;
+      filter: drop-shadow(0 32px 64px rgba(0, 0, 0, 0.5));
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .hero-content-col {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hero-eyebrow-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0, 180, 180, 0.12);
+      border: 1px solid rgba(0, 180, 180, 0.3);
+      border-radius: 100px;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--teal);
+      letter-spacing: 0.04em;
+    }
+
+    .hero-eyebrow-pill::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      background: var(--teal);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .hero-h1 {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: clamp(44px, 5.5vw, 72px);
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      color: var(--white);
+    }
+
+    .hero-h1 em {
+      font-style: normal;
+      color: var(--teal);
+    }
+
+    .hero-subhead {
+      font-size: 17px;
+      font-weight: 300;
+      line-height: 1.65;
+      color: rgba(255, 255, 255, 0.65);
+      max-width: 460px;
+    }
+
+    .hero-ctas {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    /* Hero staggered animation delays */
+    .hero-eyebrow { transition-delay: 0.1s; }
+    .hero-h1      { transition-delay: 0.2s; }
+    .hero-subhead { transition-delay: 0.3s; }
+    .hero-ctas    { transition-delay: 0.4s; }
+
+    /* ============================================================
+       TRUST BAR
+    ============================================================ */
+    #trust {
+      background: var(--white);
+      border-bottom: 1px solid var(--cream-dark);
+    }
+
+    .trust-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 28px var(--section-pad-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .trust-icon {
+      width: 32px;
+      height: 32px;
+      background: rgba(0, 180, 180, 0.08);
+      border: 1px solid rgba(0, 180, 180, 0.2);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      flex-shrink: 0;
+    }
+
+    .trust-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--navy);
+      white-space: nowrap;
+    }
+
+    /* ============================================================
+       PROBLEM CARDS
+    ============================================================ */
+    #problem {
+      background: var(--cream);
+      padding: var(--section-pad-v) 0;
+    }
+
+    .problem-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .problem-header .section-label {
+      margin-bottom: 0;
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .problem-card {
+      background: var(--white);
+      border-radius: var(--radius-card);
+      padding: 36px 32px;
+      border-top: 3px solid transparent;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      position: relative;
+    }
+
+    .problem-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(13, 27, 42, 0.12);
+      border-top-color: var(--teal);
+    }
+
+    .problem-card-badge {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gray-muted);
+      margin-bottom: 16px;
+    }
+
+    .problem-card-question {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 19px;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      color: var(--navy);
+      margin-bottom: 16px;
+    }
+
+    .problem-card-divider {
+      width: 32px;
+      height: 2px;
+      background: var(--teal);
+      margin-bottom: 16px;
+    }
+
+    .problem-card-answer {
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.65;
+      color: var(--text-body);
+    }
+
+    /* ============================================================
+       HOW IT WORKS
+    ============================================================ */
+    #how-it-works {
+      background: var(--navy);
+      padding: var(--section-pad-v) 0;
+    }
+
+    .how-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    .how-header .section-label {
+      margin-bottom: 12px;
+    }
+
+    .how-header h2 {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: clamp(32px, 3.5vw, 48px);
+      letter-spacing: -0.02em;
+      color: var(--white);
+    }
+
+    .how-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      position: relative;
+    }
+
+    .how-connector {
+      position: absolute;
+      top: 40px;
+      left: calc(16.667% + 40px);
+      right: calc(16.667% + 40px);
+      height: 1px;
+      background: linear-gradient(to right, rgba(0, 180, 180, 0.4), rgba(0, 180, 180, 0.2), rgba(0, 180, 180, 0.4));
+      pointer-events: none;
+    }
+
+    .how-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 0 32px;
+    }
+
+    .how-step-circle {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 2px solid var(--teal);
+      background: var(--navy);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 28px;
+      color: var(--teal);
+      margin-bottom: 28px;
+      position: relative;
+      z-index: 1;
+      flex-shrink: 0;
+    }
+
+    .how-step-title {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 22px;
+      letter-spacing: -0.02em;
+      color: var(--white);
+      margin-bottom: 14px;
+    }
+
+    .how-step-desc {
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.65;
+      color: var(--gray-muted);
+      max-width: 280px;
+    }
+
+    /* ============================================================
+       WHAT'S INCLUDED
+    ============================================================ */
+    #whats-included {
+      background: var(--white);
+      padding: var(--section-pad-v) 0;
+    }
+
+    .included-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+
+    .included-header .section-label {
+      margin-bottom: 12px;
+    }
+
+    .included-header h2 {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: clamp(28px, 3vw, 42px);
+      letter-spacing: -0.02em;
+      color: var(--navy);
+    }
+
+    .included-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .included-item {
+      background: var(--cream);
+      border: 1px solid var(--cream-dark);
+      border-radius: var(--radius-card);
+      padding: 28px 24px;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .included-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(13, 27, 42, 0.08);
+    }
+
+    .included-emoji {
+      font-size: 28px;
+      margin-bottom: 14px;
+      line-height: 1;
+    }
+
+    .included-title {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: -0.01em;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+
+    .included-desc {
+      font-size: 13px;
+      font-weight: 300;
+      line-height: 1.55;
+      color: var(--text-body);
+    }
+
+    /* ============================================================
+       WHO IT'S FOR
+    ============================================================ */
+    #who-its-for {
+      background: var(--cream);
+      padding: var(--section-pad-v) 0;
+    }
+
+    .who-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+
+    .who-header .section-label {
+      margin-bottom: 12px;
+    }
+
+    .who-header h2 {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: clamp(28px, 3vw, 42px);
+      letter-spacing: -0.02em;
+      color: var(--navy);
+    }
+
+    .who-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .who-card {
+      background: var(--navy);
+      border-radius: var(--radius-card);
+      padding: 40px 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .who-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 56px rgba(0, 0, 0, 0.35);
+    }
+
+    .who-card.featured {
+      border-left: 3px solid var(--teal);
+    }
+
+    .who-card-tag {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--teal);
+    }
+
+    .who-card-headline {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 20px;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      color: var(--white);
+    }
+
+    .who-card-desc {
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.65;
+      color: rgba(255, 255, 255, 0.55);
+      flex: 1;
+    }
+
+    .who-card-cta {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--teal);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: gap 0.2s ease;
+    }
+
+    .who-card-cta:hover {
+      gap: 10px;
+    }
+
+    /* ============================================================
+       METRICS BAR
+    ============================================================ */
+    #metrics {
+      background: var(--teal);
+      padding: 64px 0;
+    }
+
+    .metrics-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 var(--section-pad-h);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .metric-item {
+      text-align: center;
+      padding: 0 32px;
+      position: relative;
+    }
+
+    .metric-item + .metric-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 10%;
+      height: 80%;
+      width: 1px;
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    .metric-number {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: clamp(40px, 4.5vw, 60px);
+      letter-spacing: -0.03em;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .metric-label {
+      font-size: 13px;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.4;
+    }
+
+    /* ============================================================
+       FAQ
+    ============================================================ */
+    #faq {
+      background: var(--white);
+      padding: var(--section-pad-v) 0;
+    }
+
+    .faq-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+
+    .faq-header .section-label {
+      margin-bottom: 12px;
+    }
+
+    .faq-header h2 {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: clamp(28px, 3vw, 42px);
+      letter-spacing: -0.02em;
+      color: var(--navy);
+    }
+
+    .faq-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .faq-card {
+      background: var(--cream);
+      border: 1px solid var(--cream-dark);
+      border-radius: var(--radius-card);
+      padding: 28px 28px;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .faq-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 28px rgba(13, 27, 42, 0.08);
+    }
+
+    .faq-question {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 16px;
+      letter-spacing: -0.01em;
+      color: var(--navy);
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+
+    .faq-answer {
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.65;
+      color: var(--text-body);
+    }
+
+    /* ============================================================
+       FINAL CTA
+    ============================================================ */
+    #final-cta {
+      background: var(--navy);
+      padding: var(--section-pad-v) 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .final-cta-glow {
+      position: absolute;
+      bottom: -160px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 700px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(0, 180, 180, 0.14) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .final-cta-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 0 var(--section-pad-h);
+    }
+
+    .final-cta-inner .section-label {
+      margin-bottom: 20px;
+    }
+
+    .final-cta-h2 {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: clamp(34px, 4vw, 54px);
+      letter-spacing: -0.02em;
+      line-height: 1.07;
+      color: var(--white);
+      margin-bottom: 18px;
+    }
+
+    .final-cta-subline {
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 1.65;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 40px;
+    }
+
+    .final-cta-buttons {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+
+    .final-cta-footnote {
+      font-size: 13px;
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.35);
+    }
+
+    .final-cta-footnote a {
+      color: rgba(255, 255, 255, 0.5);
+      transition: color 0.2s;
+    }
+
+    .final-cta-footnote a:hover {
+      color: var(--teal);
+    }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    #footer {
+      background: var(--navy-deep);
+      padding: 36px 0;
+    }
+
+    .footer-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 var(--section-pad-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .footer-logo img {
+      height: 28px;
+      width: auto;
+      opacity: 0.7;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-size: 13px;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.4);
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    .footer-copyright {
+      font-size: 13px;
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    /* ============================================================
+       RESPONSIVE — TABLET (1024px)
+    ============================================================ */
+    @media (max-width: 1024px) {
+      :root {
+        --section-pad-v: 72px;
+        --section-pad-h: 32px;
+      }
+
+      .hero-inner {
+        gap: 40px;
+      }
+
+      .included-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .metrics-inner {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px 0;
+      }
+
+      .metric-item + .metric-item::before {
+        display: none;
+      }
+
+      .metric-item:nth-child(2n)::before {
+        display: none;
+      }
+
+      .metric-item:nth-child(2)::before,
+      .metric-item:nth-child(4)::before {
+        display: none;
+      }
+
+      .metric-item:nth-child(3)::before,
+      .metric-item:nth-child(2)::before {
+        content: '';
+        display: block;
+      }
+
+      .metrics-inner .metric-item:nth-child(even)::before {
+        display: none;
+      }
+    }
+
+    /* ============================================================
+       RESPONSIVE — MOBILE (768px)
+    ============================================================ */
+    @media (max-width: 768px) {
+      :root {
+        --section-pad-v: 56px;
+        --section-pad-h: 20px;
+      }
+
+      /* Nav — logo + CTA only */
+      .nav-links {
+        display: none;
+      }
+
+      .nav-inner {
+        padding: 0 20px;
+      }
+
+      /* Hero stacks vertically */
+      .hero-inner {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 48px 20px 56px;
+        text-align: center;
+      }
+
+      .hero-image-col {
+        order: -1;
+      }
+
+      .hero-van {
+        max-width: 340px;
+        margin: 0 auto;
+      }
+
+      .hero-eyebrow {
+        justify-content: center;
+      }
+
+      .hero-subhead {
+        max-width: 100%;
+      }
+
+      .hero-ctas {
+        justify-content: center;
+      }
+
+      /* Trust bar wraps */
+      .trust-inner {
+        gap: 20px;
+        justify-content: flex-start;
+      }
+
+      .trust-item {
+        flex: 0 0 calc(50% - 10px);
+      }
+
+      /* Problem: single column */
+      .problem-grid {
+        grid-template-columns: 1fr;
+      }
+
+      /* How It Works: single column */
+      .how-steps {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      .how-connector {
+        display: none;
+      }
+
+      /* Included: 2-column */
+      .included-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      /* Who It's For: single column */
+      .who-grid {
+        grid-template-columns: 1fr;
+      }
+
+      /* Metrics: 2x2 */
+      .metrics-inner {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px 0;
+      }
+
+      .metric-item + .metric-item::before {
+        display: none;
+      }
+
+      /* FAQ: single column */
+      .faq-grid {
+        grid-template-columns: 1fr;
+      }
+
+      /* Footer */
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+      }
+
+      .footer-links {
+        flex-wrap: wrap;
+        gap: 16px 24px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .trust-item {
+        flex: 0 0 100%;
+      }
+
+      .included-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ============================================================
+       NAV
+  ============================================================ -->
+  <nav id="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo" aria-label="Axxess Mobility home">
+        <img
+          src="https://ypcoeykntcmthsobzvee.supabase.co/storage/v1/object/public/Brand%20Imagery/axxess_logo_tran_dark.png"
+          alt="Axxess Mobility"
+          height="36"
+        />
+      </a>
+      <ul class="nav-links">
+        <li><a href="#how-it-works">How It Works</a></li>
+        <li><a href="#who-its-for">For Drivers</a></li>
+        <li><a href="#who-its-for">For Operators</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+      <a href="#who-its-for" class="btn btn-primary nav-cta">Get Started</a>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       HERO
+  ============================================================ -->
+  <section id="hero" aria-label="Hero">
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="hero-inner">
+
+      <div class="hero-image-col">
+        <img
+          src="https://ypcoeykntcmthsobzvee.supabase.co/storage/v1/object/public/Brand%20Imagery/axxess_van_image_v3_final.png"
+          alt="Axxess electric cargo van"
+          class="hero-van"
+        />
+      </div>
+
+      <div class="hero-content-col">
+        <div class="hero-eyebrow fade-up">
+          <span class="hero-eyebrow-pill">NYC Metro · Now Active</span>
+        </div>
+
+        <h1 class="hero-h1 fade-up">
+          The cargo van.<br /><em>Without the ownership.</em>
+        </h1>
+
+        <p class="hero-subhead fade-up">
+          New electric cargo vans for delivery drivers and operators — insured, maintained, and paid for automatically from weekly earnings. No credit card. No deposit.
+        </p>
+
+        <div class="hero-ctas fade-up">
+          <a href="#who-its-for" class="btn btn-primary">Get a Van</a>
+          <a href="#who-its-for" class="btn btn-ghost">Equip Your Drivers →</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       TRUST BAR
+  ============================================================ -->
+  <section id="trust" aria-label="Trust indicators">
+    <div class="trust-inner fade-up">
+      <div class="trust-item">
+        <div class="trust-icon" aria-hidden="true">⚡</div>
+        <span class="trust-label">100% Electric Fleet</span>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon" aria-hidden="true">🔧</div>
+        <span class="trust-label">Maintenance Included</span>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon" aria-hidden="true">🛡️</div>
+        <span class="trust-label">Commercial Insurance</span>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon" aria-hidden="true">💳</div>
+        <span class="trust-label">No Credit Card Required</span>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon" aria-hidden="true">📍</div>
+        <span class="trust-label">NYC Metro Area</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PROBLEM CARDS
+  ============================================================ -->
+  <section id="problem" aria-label="Common challenges">
+    <div class="container">
+      <div class="problem-header fade-up">
+        <p class="section-label">Sound familiar?</p>
+      </div>
+      <div class="problem-grid">
+
+        <div class="problem-card fade-up">
+          <p class="problem-card-badge">For Drivers</p>
+          <h3 class="problem-card-question syne">A driver needs a van but can't get one.</h3>
+          <div class="problem-card-divider"></div>
+          <p class="problem-card-answer">No credit card, no deposit, no problem. Drivers get a new electric cargo van through Axxess and pay from their weekly earnings automatically — before they're ever paid out.</p>
+        </div>
+
+        <div class="problem-card fade-up">
+          <p class="problem-card-badge">For Operators</p>
+          <h3 class="problem-card-question syne">A route goes uncovered because a van breaks down.</h3>
+          <div class="problem-card-divider"></div>
+          <p class="problem-card-answer">Maintenance and roadside are on Axxess. Drivers call us, not you. They stay on the road. Your routes stay covered.</p>
+        </div>
+
+        <div class="problem-card fade-up">
+          <p class="problem-card-badge">For Fleet & SMB</p>
+          <h3 class="problem-card-question syne">NYC is requiring electric delivery vehicles by 2030.</h3>
+          <div class="problem-card-divider"></div>
+          <p class="problem-card-answer">Every Axxess van is electric. When your drivers use Axxess, your operation is already moving toward compliance — without spending capital on a fleet.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       HOW IT WORKS
+  ============================================================ -->
+  <section id="how-it-works" aria-label="How Axxess works">
+    <div class="container">
+      <div class="how-header fade-up">
+        <p class="section-label">How It Works</p>
+        <h2>Three steps. That's it.</h2>
+      </div>
+      <div class="how-steps fade-up">
+        <div class="how-connector" aria-hidden="true"></div>
+
+        <div class="how-step">
+          <div class="how-step-circle" aria-hidden="true">1</div>
+          <h3 class="how-step-title">Apply</h3>
+          <p class="how-step-desc">Download the Axxess app and apply in minutes. Drivers already working delivery routes can be approved the same day.</p>
+        </div>
+
+        <div class="how-step">
+          <div class="how-step-circle" aria-hidden="true">2</div>
+          <h3 class="how-step-title">Access</h3>
+          <p class="how-step-desc">Pick up your van from an Axxess depot in the Bronx, Queens, or Brooklyn. Keyless entry through the app. No key handoff, no paperwork at pickup.</p>
+        </div>
+
+        <div class="how-step">
+          <div class="how-step-circle" aria-hidden="true">3</div>
+          <h3 class="how-step-title">Drive</h3>
+          <p class="how-step-desc">Get on the road. Your weekly van payment comes out of your earnings automatically — you never see it leave. Just drive.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       WHAT'S INCLUDED
+  ============================================================ -->
+  <section id="whats-included" aria-label="What's included">
+    <div class="container">
+      <div class="included-header fade-up">
+        <p class="section-label">What's Included</p>
+        <h2>Everything your driver needs. Nothing extra.</h2>
+      </div>
+      <div class="included-grid">
+
+        <div class="included-item fade-up">
+          <div class="included-emoji" aria-hidden="true">🚐</div>
+          <h3 class="included-title">New electric cargo van</h3>
+          <p class="included-desc">Purpose-built for last-mile delivery in NYC</p>
+        </div>
+
+        <div class="included-item fade-up">
+          <div class="included-emoji" aria-hidden="true">🛡️</div>
+          <h3 class="included-title">Commercial insurance</h3>
+          <p class="included-desc">Fully covered for delivery work — no gray area</p>
+        </div>
+
+        <div class="included-item fade-up">
+          <div class="included-emoji" aria-hidden="true">🔧</div>
+          <h3 class="included-title">Maintenance & repairs</h3>
+          <p class="included-desc">All included. Drivers never pay for a fix.</p>
+        </div>
+
+        <div class="included-item fade-up">
+          <div class="included-emoji" aria-hidden="true">🛣️</div>
+          <h3 class="included-title">Roadside assistance</h3>
+          <p class="included-desc">Help on the way if something goes wrong</p>
+        </div>
+
+        <div class="included-item fade-up">
+          <div class="included-emoji" aria-hidden="true">📱</div>
+          <h3 class="included-title">Keyless app access</h3>
+          <p class="included-desc">Unlock and manage the van from your phone</p>
+        </div>
+
+        <div class="included-item fade-up">
+          <div class="included-emoji" aria-hidden="true">⚡</div>
+          <h3 class="included-title">No fuel costs</h3>
+          <p class="included-desc">Electric means zero gas bill, ever</p>
+        </div>
+
+        <div class="included-item fade-up">
+          <div class="included-emoji" aria-hidden="true">💳</div>
+          <h3 class="included-title">No credit card needed</h3>
+          <p class="included-desc">Payment comes from weekly earnings, not a bank account</p>
+        </div>
+
+        <div class="included-item fade-up">
+          <div class="included-emoji" aria-hidden="true">📍</div>
+          <h3 class="included-title">Depot locations</h3>
+          <p class="included-desc">Bronx, Queens, Brooklyn — close to where routes run</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       WHO IT'S FOR
+  ============================================================ -->
+  <section id="who-its-for" aria-label="Who Axxess is for">
+    <div class="container">
+      <div class="who-header fade-up">
+        <p class="section-label">Who It's For</p>
+        <h2>Built for everyone in the delivery chain.</h2>
+      </div>
+      <div class="who-grid">
+
+        <div class="who-card featured fade-up" id="get-a-van">
+          <p class="who-card-tag">For Drivers</p>
+          <h3 class="who-card-headline">You drive. We handle everything else.</h3>
+          <p class="who-card-desc">New van. No ownership. Insurance and maintenance included. Your weekly payment comes out automatically — you never have to think about it.</p>
+          <a href="#final-cta" class="who-card-cta">Get a Van →</a>
+        </div>
+
+        <div class="who-card fade-up" id="equip-drivers">
+          <p class="who-card-tag">For DSP Operators</p>
+          <h3 class="who-card-headline">Your drivers covered. Nothing on your plate.</h3>
+          <p class="who-card-desc">Your drivers get reliable electric vans. Payment is handled automatically — you're not invoiced, you collect nothing, and nothing changes about how you run your operation.</p>
+          <a href="#final-cta" class="who-card-cta">Equip Your Drivers →</a>
+        </div>
+
+        <div class="who-card fade-up">
+          <p class="who-card-tag">For Fleet & SMB</p>
+          <h3 class="who-card-headline">Scale your fleet without buying one.</h3>
+          <p class="who-card-desc">Add vans as your operation grows. One predictable weekly rate. No capital commitment. No long-term lease.</p>
+          <a href="#final-cta" class="who-card-cta">Talk to Us →</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       METRICS BAR
+  ============================================================ -->
+  <section id="metrics" aria-label="Axxess by the numbers">
+    <div class="metrics-inner fade-up">
+
+      <div class="metric-item">
+        <div class="metric-number">9</div>
+        <div class="metric-label">Depot locations at launch</div>
+      </div>
+
+      <div class="metric-item">
+        <div class="metric-number">$0</div>
+        <div class="metric-label">Upfront cost</div>
+      </div>
+
+      <div class="metric-item">
+        <div class="metric-number">1 Day</div>
+        <div class="metric-label">Approval for qualifying drivers</div>
+      </div>
+
+      <div class="metric-item">
+        <div class="metric-number">100%</div>
+        <div class="metric-label">Electric fleet</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FAQ
+  ============================================================ -->
+  <section id="faq" aria-label="Frequently asked questions">
+    <div class="container">
+      <div class="faq-header fade-up">
+        <p class="section-label">FAQ</p>
+        <h2>Common questions, straight answers.</h2>
+      </div>
+      <div class="faq-grid">
+
+        <div class="faq-card fade-up">
+          <h3 class="faq-question">Does this change how I pay my drivers?</h3>
+          <p class="faq-answer">No. Everything is handled automatically. Your payroll process stays exactly the same.</p>
+        </div>
+
+        <div class="faq-card fade-up">
+          <h3 class="faq-question">What happens if a van breaks down?</h3>
+          <p class="faq-answer">Your driver contacts Axxess directly. We handle maintenance and roadside. You're not involved.</p>
+        </div>
+
+        <div class="faq-card fade-up">
+          <h3 class="faq-question">Do my drivers need a credit card or deposit?</h3>
+          <p class="faq-answer">No. Payment comes out of their weekly earnings automatically. Nothing from their pocket.</p>
+        </div>
+
+        <div class="faq-card fade-up">
+          <h3 class="faq-question">What if a driver doesn't work one week?</h3>
+          <p class="faq-answer">If there's nothing earned, there's nothing deducted. Payment is tied entirely to active earnings.</p>
+        </div>
+
+        <div class="faq-card fade-up">
+          <h3 class="faq-question">What kind of van is it?</h3>
+          <p class="faq-answer">A Ford E-Transit — a new electric cargo van purpose-built for delivery routes.</p>
+        </div>
+
+        <div class="faq-card fade-up">
+          <h3 class="faq-question">Where are your depots?</h3>
+          <p class="faq-answer">Currently the Bronx, Queens, and Brooklyn. More locations coming.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FINAL CTA
+  ============================================================ -->
+  <section id="final-cta" aria-label="Get started with Axxess">
+    <div class="final-cta-glow" aria-hidden="true"></div>
+    <div class="final-cta-inner">
+      <p class="section-label fade-up">Ready to get started?</p>
+      <h2 class="final-cta-h2 fade-up">NYC pilot is live.</h2>
+      <p class="final-cta-subline fade-up">Limited van availability. Operators and drivers can apply today.</p>
+      <div class="final-cta-buttons fade-up">
+        <a href="#who-its-for" class="btn btn-primary">Get a Van</a>
+        <a href="#who-its-for" class="btn btn-ghost">Equip Your Drivers →</a>
+      </div>
+      <p class="final-cta-footnote fade-up">
+        Investor or partnership inquiries: <a href="mailto:hello@getaxxess.co">hello@getaxxess.co</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer id="footer" role="contentinfo">
+    <div class="footer-inner">
+      <a href="#hero" class="footer-logo" aria-label="Axxess Mobility home">
+        <img
+          src="https://ypcoeykntcmthsobzvee.supabase.co/storage/v1/object/public/Brand%20Imagery/axxess_logo_tran_dark.png"
+          alt="Axxess Mobility"
+          height="28"
+        />
+      </a>
+      <ul class="footer-links">
+        <li><a href="#how-it-works">How It Works</a></li>
+        <li><a href="#who-its-for">For Drivers</a></li>
+        <li><a href="#who-its-for">For Operators</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+      <p class="footer-copyright">&copy; 2025 Axxess Mobility. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       JAVASCRIPT — scroll, nav, IntersectionObserver
+  ============================================================ -->
+  <script>
+    // Nav scroll class
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 20) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    }, { passive: true });
+
+    // IntersectionObserver — fade-up on all .fade-up elements
+    const fadeEls = document.querySelectorAll('.fade-up');
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -32px 0px' }
+    );
+
+    fadeEls.forEach((el) => observer.observe(el));
+
+    // Hero — trigger fade-ups on load with stagger
+    window.addEventListener('load', () => {
+      const heroEls = document.querySelectorAll('#hero .fade-up');
+      heroEls.forEach((el, i) => {
+        setTimeout(() => {
+          el.classList.add('visible');
+        }, 80 + i * 100);
+      });
+    });
+
+    // Smooth scroll for anchor links (supplemental to CSS scroll-behavior)
+    document.querySelectorAll('a[href^="#"]').forEach((link) => {
+      link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href');
+        if (href === '#') return;
+        const target = document.querySelector(href);
+        if (target) {
+          e.preventDefault();
+          const navHeight = nav.offsetHeight;
+          const top = target.getBoundingClientRect().top + window.scrollY - navHeight;
+          window.scrollTo({ top, behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
